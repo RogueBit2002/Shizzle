@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>Shizzle.Data</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MySql.Data" Version="8.0.29" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Shizzle_IData\Shizzle_IData.csproj" />
+	  <ProjectReference Include="..\Shizzle_LowLevelStructures\Shizzle_LowLevelStructures.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+	<AssemblyName>Shizzle_LowLevelStructures</AssemblyName>
+	<RootNamespace>Shizzle.Structures.LowLevel</RootNamespace>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Shizzle_Structures\Shizzle_Structures.csproj" />
+	</ItemGroup>
+	
+
+</Project>

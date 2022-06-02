@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+
+	<ItemGroup>
+		<ProjectReference Include="..\Shizzle_ILogic\Shizzle_ILogic.csproj" />
+		<ProjectReference Include="..\Shizzle_Factory\Shizzle_Factory.csproj" />
+		<ProjectReference Include="..\Shizzle_Structures\Shizzle_Structures.csproj" />
+	</ItemGroup>
+</Project>

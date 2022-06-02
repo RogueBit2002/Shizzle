@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>Shizzle.Factory</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Shizzle_ILogic\Shizzle_ILogic.csproj" />
+    <ProjectReference Include="..\Shizzle_IData\Shizzle_IData.csproj" />
+    <ProjectReference Include="..\Shizzle_Data\Shizzle_Data.csproj" />
+    <ProjectReference Include="..\Shizzle_Logic\Shizzle_Logic.csproj" />
+  </ItemGroup>
+
+</Project>

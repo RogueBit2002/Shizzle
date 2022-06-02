@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <AssemblyName>Shizzle_ILogic</AssemblyName>
+    <RootNamespace>Shizzle.ILogic</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Shizzle_Structures\Shizzle_Structures.csproj" />
+  </ItemGroup>
+
+</Project>
