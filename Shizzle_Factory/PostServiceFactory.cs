@@ -15,7 +15,6 @@ namespace Shizzle.Factory
         public static IPostService CreateService()
         {
             return new PostService(CreateDataService(),
-                UserServiceFactory.CreateDataService(), 
                 GroupServiceFactory.CreateDataService());
         }
 

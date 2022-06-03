@@ -15,12 +15,10 @@ namespace Shizzle.Logic
     {
         public uint authorityId { get; set; }
         private IPostDataService dataService;
-        private IUserDataService userDataService;
         private IGroupDataService groupDataService;
-        public PostService(IPostDataService dataService, IUserDataService userDataService, IGroupDataService groupDataService)
+        public PostService(IPostDataService dataService, IGroupDataService groupDataService)
         {
             this.dataService = dataService;
-            this.userDataService = userDataService;
             this.groupDataService = groupDataService;
         }
         public Structures.IPost CreatePost(string title, string content)

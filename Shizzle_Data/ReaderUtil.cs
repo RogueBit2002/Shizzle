@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Shizzle.Data
 {
+    //Extension class that helps with retrieving entities from a MySqlDataReader
     internal static class ReaderUtil
     {
         #region User
