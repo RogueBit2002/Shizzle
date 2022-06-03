@@ -11,8 +11,8 @@ namespace Shizzle.Data
     {
         public uint groupId { get; set; }
 
-        public GroupPost(uint id, string title, string content, uint authorId, DateTime date, bool edited, uint groupId)
-            : base(id, title, content, authorId, date, edited)
+        public GroupPost(uint id, string title, string content, uint authorId, DateTime date, bool edited, bool deleted, uint groupId)
+            : base(id, title, content, authorId, date, edited, deleted)
         {
             this.id = id;
             this.title = title;

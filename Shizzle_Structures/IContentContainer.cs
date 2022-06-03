@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shizzle.Structures
 {
-    public interface IContentContainer : IIdentifiable
+    public interface IContentContainer : IEntity
     {
         public string content { get; }
         public uint authorId { get; }

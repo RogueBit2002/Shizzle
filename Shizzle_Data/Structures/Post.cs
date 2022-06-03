@@ -21,7 +21,9 @@ namespace Shizzle.Data
 
         public uint id { get; set; }
 
-        public Post(uint id, string title, string content, uint authorId, DateTime date, bool edited)
+        public bool deleted { get; set; }
+
+        public Post(uint id, string title, string content, uint authorId, DateTime date, bool edited, bool deleted)
         {
             this.id = id;
             this.title = title;
@@ -29,6 +31,7 @@ namespace Shizzle.Data
             this.authorId = authorId;
             this.date = date;
             this.edited = edited;
+            this.deleted = deleted;
         }
     }
 }

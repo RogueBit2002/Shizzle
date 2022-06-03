@@ -8,6 +8,7 @@ CREATE TABLE `user` (
     `email` VARCHAR(32) NOT NULL,
     `password` VARCHAR(64) NOT NULL,
     `biography` TEXT CHARACTER SET utf32 COLLATE utf32_unicode_520_ci,
+	`deleted` TINYINT NOT NULL DEFAULT(0), 
     PRIMARY KEY (`id`),
     UNIQUE KEY `id` (`name`,`email`)
 );

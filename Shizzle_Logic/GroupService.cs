@@ -37,7 +37,7 @@ namespace Shizzle.Logic
 
         public IGroup GetGroup(uint id)
         {
-            throw new NotImplementedException();
+            return dataService.GetGroup(id);
         }
 
         public IEnumerable<Structures.IGroup> GetGroupsByUserParticipation(uint userId)

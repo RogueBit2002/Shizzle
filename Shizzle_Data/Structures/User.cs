@@ -19,13 +19,16 @@ namespace Shizzle.Data
 
         public uint id { get; set; }
 
-        public User(uint id, string name, string email, string password, string biography)
+        public bool deleted { get; set; }
+
+        public User(uint id, string name, string email, string password, string biography, bool deleted)
         {
             this.id = id;
             this.name = name;
             this.email = email;
             this.password = password;
             this.biography = biography;
+            this.deleted = deleted;
         }
     }
 }

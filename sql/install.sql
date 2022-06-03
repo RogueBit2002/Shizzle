@@ -7,4 +7,7 @@ source install/install_table_post.sql;
 source install/install_table_group.sql;
 source install/install_table_comment.sql;
 
+source install/install_table_group_admin_link.sql;
+source install/install_table_group_member_link.sql;
+
 source install/install_user_root.sql;

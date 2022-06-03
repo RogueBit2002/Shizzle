@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shizzle.Structures
 {
-    public interface IUser : IIdentifiable
+    public interface IUser : IEntity
     {
         public string name { get; }
         public string email { get; }

@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Shizzle.Structures
 {
-    public interface IIdentifiable
+    public interface IEntity
     {
         public uint id { get; }
+        public bool deleted { get; }
     }
 }

@@ -10,6 +10,7 @@ CREATE TABLE `post` (
     `edited` TINYINT DEFAULT(0) NOT NULL,
     `author_id` INT unsigned NOT NULL,
     `group_id` INT unsigned,
+	`deleted` TINYINT NOT NULL DEFAULT(0), 
     PRIMARY KEY (`id`),
     FOREIGN KEY (`author_id`) REFERENCES `user`(`id`)
 );

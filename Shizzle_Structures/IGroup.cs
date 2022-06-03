@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shizzle.Structures
 {
-    public interface IGroup : IIdentifiable
+    public interface IGroup : IEntity
     {
         public string name { get; }
         public string description { get; }

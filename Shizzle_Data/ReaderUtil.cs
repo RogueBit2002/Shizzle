@@ -11,14 +11,14 @@ namespace Shizzle.Data
     internal static class ReaderUtil
     {
         #region User
-        public static IEnumerable<IUser> GetUsers(this MySqlDataReader reader)
+        public static IEnumerable<User> GetUsers(this MySqlDataReader reader)
         {
-            IUser user;
+            User user;
             while((user = GetUser(reader)) != null)
                 yield return user;
         }
 
-        public static IUser GetUser(this MySqlDataReader reader)
+        public static User GetUser(this MySqlDataReader reader)
         {
             if (!reader.Read())
                 return null;
@@ -28,20 +28,21 @@ namespace Shizzle.Data
                     reader.GetString("name"),
                     reader.GetString("email"),
                     reader.GetString("password"),
-                    reader.GetString("biography"));
+                    reader.GetString("biography"),
+                    reader.GetBoolean("deleted"));
         }
         #endregion
 
 
         #region Post
-        public static IEnumerable<IPost> GetPosts(this MySqlDataReader reader)
+        public static IEnumerable<Post> GetPosts(this MySqlDataReader reader)
         {
-            IPost post;
+            Post post;
             while ((post = GetPost(reader)) != null)
                 yield return post;
         }
 
-        public static IPost GetPost(this MySqlDataReader reader)
+        public static Post GetPost(this MySqlDataReader reader)
         {
             if (!reader.Read())
                 return null;
@@ -53,7 +54,8 @@ namespace Shizzle.Data
                         reader.GetString("content"),
                         reader.GetUInt32("author_id"),
                         reader.GetDateTime("date"),
-                        reader.GetBoolean("edited"));
+                        reader.GetBoolean("edited"),
+                        reader.GetBoolean("deleted"));
             else
                 return new GroupPost(
                         reader.GetUInt32("id"),
@@ -62,10 +64,40 @@ namespace Shizzle.Data
                         reader.GetUInt32("author_id"),
                         reader.GetDateTime("date"),
                         reader.GetBoolean("edited"),
+                        reader.GetBoolean("deleted"),
                         reader.GetUInt32("group_id"));
         }
 
 
+        #endregion
+
+
+        #region Group
+        public static IEnumerable<Group> GetGroups(this MySqlDataReader reader)
+        {
+            Group group;
+            while((group = GetGroup(reader)) != null)
+            {
+                yield return group;
+            }
+        }
+
+        public static Group GetGroup(this MySqlDataReader reader)
+        {
+            if (!reader.Read())
+                return null;
+
+
+            return new Group(
+                reader.GetUInt32("id"),
+                reader.GetString("name"),
+                reader.GetString("description"),
+                reader.GetUInt32("owner_id"),
+                null,
+                null,
+                reader.GetBoolean("deleted"));
+
+        }
         #endregion
     }
 }
