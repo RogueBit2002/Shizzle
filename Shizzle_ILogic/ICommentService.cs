@@ -9,11 +9,11 @@ namespace Shizzle.ILogic
 {
     public interface ICommentService : ISecureService
     {
-        public IComment CreateComment(string content, int postId);
-        public void DeleteComment(int id);
-        public IComment GetComment(int id);
-        public IComment[] GetCommentsByPost(int postId);
-        public IComment[] GetCommentsByUser(int userId);
+        public IComment CreateComment(string content, uint postId);
+        public void DeleteComment(uint id);
+        public IComment GetComment(uint id);
+        public IEnumerable<IComment> GetCommentsByPost(uint postId);
+        public IEnumerable<IComment> GetCommentsByUser(uint userId);
         public void EditContent(string content);
 
     }

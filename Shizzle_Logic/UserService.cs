@@ -1,9 +1,10 @@
 ﻿using Shizzle.IData;
 using Shizzle.ILogic;
-using Shizzle.Structures;
+using Shizzle.Structures.LowLevel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,57 +12,81 @@ namespace Shizzle.Logic
 {
 	public class UserService : IUserService
 	{
-        public int authorityId { get; set; }
-		private IUserDataService userDataService;
+        public uint authorityId { get; set; }
+
+		private IUserDataService dataService;
 
         public UserService(IUserDataService userDataService)
         {
-            this.userDataService = userDataService;
+            this.dataService = userDataService;
         }
 
-        public IUser CreateUser(string name, string email, string password)
+        public Structures.IUser CreateUser(string name, string email, string password)
         {
-            throw new NotImplementedException();
+            return dataService.CreateUser(name, email, Security.HashPassword(password));
         }
 
-        public void DeleteUser(int id, string password)
+        public void DeleteUser(uint id, string password)
         {
-            throw new NotImplementedException();
+            if (id != authorityId)
+                throw new SecurityException();
+
+            dataService.DeleteUser(id, password);
         }
 
-        public IUser GetUser(int id)
+        public Structures.IUser GetUser(uint id)
         {
-            throw new NotImplementedException();
+            return dataService.GetUser(id);
         }
 
-        public IUser GetUser(string email)
+        public Structures.IUser GetUser(string email)
         {
-            throw new NotImplementedException();
+            return dataService.GetUser(email);
         }
 
-        public void SetBiography(int id, string biography)
+        public void SetBiography(uint id, string biography)
         {
-            throw new NotImplementedException();
+            if (id != authorityId)
+                throw new SecurityException();
+
+            dataService.SetBiography(id, biography);
         }
 
-        public void SetEmail(int id, string email)
+        public void SetEmail(uint id, string email)
         {
-            throw new NotImplementedException();
+            if (id != authorityId)
+                throw new SecurityException();
+
+            if (dataService.GetUser(email) != null)
+                throw new ArgumentException();
+
+            dataService.SetEmail(id, email);
         }
 
-        public void SetName(int id, string name)
+        public void SetName(uint id, string name)
         {
-            throw new NotImplementedException();
+            if (id != authorityId)
+                throw new SecurityException();
+
+            dataService.SetName(id, name);
         }
 
-        public void SetPassword(int id, string password)
+        public void SetPassword(uint id, string password)
         {
-            throw new NotImplementedException();
+            if (id != authorityId)
+                throw new SecurityException();
+
+            dataService.SetPassword(id, Security.HashPassword(password));
         }
 
-        public bool TryLogin(int id, string password)
+        public bool TryLogin(uint id, string password)
         {
-            throw new NotImplementedException();
+
+            IUser user = dataService.GetUser(id);
+
+            string hashedPassword = Security.HashPassword(password);
+
+            return user.password == hashedPassword;
         }
     }
 }

@@ -36,10 +36,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shizzle_Structures", "Shizz
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shizzle_View", "Shizzle_View\Shizzle_View.csproj", "{58FAE813-D222-4424-B53E-E4963CE7B82B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shizzle_LowLevelStructures", "Shizzle_LowLevelStructures\Shizzle_LowLevelStructures.csproj", "{5771AFBF-3F75-4F08-AE68-62C7E5680735}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shizzle_LowLevelStructures", "Shizzle_LowLevelStructures\Shizzle_LowLevelStructures.csproj", "{5771AFBF-3F75-4F08-AE68-62C7E5680735}"
 	ProjectSection(ProjectDependencies) = postProject
 		{71D00906-C705-4DBA-A765-5C96D36900C6} = {71D00906-C705-4DBA-A765-5C96D36900C6}
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TempTest", "TempTest\TempTest.csproj", "{F48B0A6F-339A-42CF-BD42-B900AD2B7801}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -79,6 +81,10 @@ Global
 		{5771AFBF-3F75-4F08-AE68-62C7E5680735}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5771AFBF-3F75-4F08-AE68-62C7E5680735}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5771AFBF-3F75-4F08-AE68-62C7E5680735}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F48B0A6F-339A-42CF-BD42-B900AD2B7801}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F48B0A6F-339A-42CF-BD42-B900AD2B7801}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F48B0A6F-339A-42CF-BD42-B900AD2B7801}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F48B0A6F-339A-42CF-BD42-B900AD2B7801}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

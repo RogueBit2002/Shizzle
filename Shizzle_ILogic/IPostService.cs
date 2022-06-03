@@ -10,13 +10,13 @@ namespace Shizzle.ILogic
     public interface IPostService : ISecureService
     {
         public IPost CreatePost(string title, string content);
-        public IPost CreatePost(string title, string content, int groupId);
+        public IPost CreatePost(string title, string content, uint groupId);
 
-        public void DeletePost(int id);
-        public IPost GetPost(int id);
-        public IPost[] GetPostsByUser(int userId);
-        public IPost[] GetPostsByGroup(int groupId);
-        public void EditTitle(int id, string title);
-        public void EditContent(int id, string content);
+        public void DeletePost(uint id);
+        public IPost GetPost(uint id);
+        public IEnumerable<IPost> GetPostsByUser(uint userId);
+        public IEnumerable<IPost> GetPostsByGroup(uint groupId);
+        public void EditTitle(uint id, string title);
+        public void EditContent(uint id, string content);
     }
 }

@@ -8,6 +8,6 @@ namespace Shizzle.Structures
 {
     public interface IComment : IContentContainer
     {
-        public int postId { get; }
+        public uint postId { get; }
     }
 }

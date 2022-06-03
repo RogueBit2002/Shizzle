@@ -29,6 +29,8 @@ namespace Shizzle.Data
             string cs = $"server={host};userid={username};password={password};database={database}";
 
             connection = new MySqlConnection(cs);
+
+            connection.Open();
         }
     }
 }

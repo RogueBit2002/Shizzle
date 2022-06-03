@@ -8,6 +8,6 @@ namespace Shizzle.Structures
 {
     public interface IGroupPost : IPost
     {
-        public int groupId { get; }
+        public uint groupId { get; }
     }
 }

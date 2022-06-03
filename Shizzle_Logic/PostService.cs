@@ -1,9 +1,10 @@
 ﻿using Shizzle.IData;
 using Shizzle.ILogic;
-using Shizzle.Structures;
+using Shizzle.Structures.LowLevel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,51 +12,65 @@ namespace Shizzle.Logic
 {
     public class PostService : IPostService
     {
-        public int authorityId { get; set; }
+        public uint authorityId { get; set; }
         private IPostDataService dataService;
+        private IUserDataService userDataService;
 
         public PostService(IPostDataService dataService)
         {
             this.dataService = dataService;
         }
-        public IPost CreatePost(string title, string content)
+        public Structures.IPost CreatePost(string title, string content)
+        {
+            return dataService.CreatePost(title, content, authorityId);
+        }
+
+        public Structures.IPost CreatePost(string title, string content, uint groupId)
         {
             throw new NotImplementedException();
         }
 
-        public IPost CreatePost(string title, string content, int groupId)
+        public void DeletePost(uint id)
         {
-            throw new NotImplementedException();
+            //TODO: Check if you're the owner, or an admin of the group post
+            dataService.DeletePost(id);
         }
 
-        public void DeletePost(int id)
+        public void EditContent(uint id, string content)
         {
-            throw new NotImplementedException();
+            IPost post = dataService.GetPost(id);
+
+            if (post.authorId != authorityId)
+                throw new SecurityException();
+
+            dataService.EditContent(id, content);
+            dataService.MarkAsEdited(id);
         }
 
-        public void EditContent(int id, string content)
+        public void EditTitle(uint id, string title)
         {
-            throw new NotImplementedException();
+            IPost post = dataService.GetPost(id);
+
+            if (post.authorId != authorityId)
+                throw new SecurityException();
+
+            dataService.EditTitle(id, title);
+            dataService.MarkAsEdited(id);
         }
 
-        public void EditTitle(int id, string title)
+        public Structures.IPost GetPost(uint id)
         {
-            throw new NotImplementedException();
+            return dataService.GetPost(id);
         }
 
-        public IPost GetPost(int id)
+        public IEnumerable<Structures.IPost> GetPostsByGroup(uint groupId)
         {
-            throw new NotImplementedException();
+            return dataService.GetPostsByGroup(groupId);
         }
 
-        public IPost[] GetPostsByGroup(int groupId)
+        public IEnumerable<Structures.IPost> GetPostsByUser(uint userId)
         {
-            throw new NotImplementedException();
-        }
-
-        public IPost[] GetPostsByUser(int userId)
-        {
-            throw new NotImplementedException();
+            return dataService.GetPostsByUser(userId);
         }
     }
 }

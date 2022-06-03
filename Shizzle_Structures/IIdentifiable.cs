@@ -8,6 +8,6 @@ namespace Shizzle.Structures
 {
     public interface IIdentifiable
     {
-        public int id { get; }
+        public uint id { get; }
     }
 }

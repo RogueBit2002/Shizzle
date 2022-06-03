@@ -17,9 +17,9 @@ namespace Shizzle.Data
 
         public string biography { get; set; }
 
-        public int id { get; set; }
+        public uint id { get; set; }
 
-        public User(int id, string name, string email, string password, string biography)
+        public User(uint id, string name, string email, string password, string biography)
         {
             this.id = id;
             this.name = name;

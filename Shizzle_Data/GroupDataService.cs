@@ -10,7 +10,7 @@ namespace Shizzle.Data
 {
     public class GroupDataService : IGroupDataService
     {
-        public void AddAdmin(int id, int adminId)
+        public void AddAdmin(uint id, uint adminId)
         {
             throw new NotImplementedException();
         }
@@ -20,37 +20,37 @@ namespace Shizzle.Data
             throw new NotImplementedException();
         }
 
-        public void DeleteGroup(int id)
+        public void DeleteGroup(uint id)
         {
             throw new NotImplementedException();
         }
 
-        public IGroup GetGroup(int id)
+        public IGroup GetGroup(uint id)
         {
             throw new NotImplementedException();
         }
 
-        public IGroup[] GetGroupsByUserParticipation(int userId)
+        public IEnumerable<IGroup> GetGroupsByUserParticipation(uint userId)
         {
             throw new NotImplementedException();
         }
 
-        public void RemoveAdmin(int id, int adminId)
+        public void RemoveAdmin(uint id, uint adminId)
         {
             throw new NotImplementedException();
         }
 
-        public void SetDescription(int id, string description)
+        public void SetDescription(uint id, string description)
         {
             throw new NotImplementedException();
         }
 
-        public void SetName(int id, string name)
+        public void SetName(uint id, string name)
         {
             throw new NotImplementedException();
         }
 
-        public void SetOwner(int id, int ownerId)
+        public void SetOwner(uint id, uint ownerId)
         {
             throw new NotImplementedException();
         }

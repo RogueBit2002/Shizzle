@@ -1,4 +1,5 @@
-﻿using Shizzle.IData;
+﻿using MySql.Data.MySqlClient;
+using Shizzle.IData;
 using Shizzle.Structures.LowLevel;
 using System;
 using System.Collections.Generic;
@@ -10,44 +11,80 @@ namespace Shizzle.Data
 {
     public class PostDataService : IPostDataService
     {
-        public IPost CreatePost(string title, string content)
+        public IPost CreatePost(string title, string content, uint authorId)
         {
             throw new NotImplementedException();
         }
 
-        public IPost CreatePost(string title, string content, int groupId)
+        public IPost CreatePost(string title, string content, uint authorId, uint groupId)
         {
             throw new NotImplementedException();
         }
 
-        public void DeletePost(int id)
+        public void DeletePost(uint id)
         {
             throw new NotImplementedException();
         }
 
-        public void EditContent(int id, string content)
+        public void EditContent(uint id, string content)
         {
             throw new NotImplementedException();
         }
 
-        public void EditTitle(int id, string title)
+        public void EditTitle(uint id, string title)
         {
             throw new NotImplementedException();
         }
 
-        public IPost GetPost(int id)
+        public IPost GetPost(uint id)
+        {
+            try
+            {
+                string query = $"SELECT * FROM `post` WHERE `id`={id} LIMIT 1;";
+
+                MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
+
+
+                MySqlDataReader reader = command.ExecuteReader();
+
+                IPost post = reader.GetPost();
+
+                reader.Close();
+
+                return post;
+
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine(e.ToString());
+                return null;
+            }
+        }
+
+        public IEnumerable<IPost> GetPostsByGroup(uint groupId)
+        {
+            return null;
+        }
+
+        public IEnumerable<IPost> GetPostsByUser(uint userId)
         {
             throw new NotImplementedException();
         }
 
-        public IPost[] GetPostsByGroup(int groupId)
+        public void MarkAsEdited(uint id, bool edited = true)
         {
-            throw new NotImplementedException();
-        }
+            try
+            {
+                string query = $"UPDATE `post` SET `edited`='{edited}' WHERE `id`={id};";
 
-        public IPost[] GetPostsByUser(int userId)
-        {
-            throw new NotImplementedException();
+                MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
+
+                command.ExecuteNonQuery();
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine(e.ToString());
+            }
         }
     }
 }

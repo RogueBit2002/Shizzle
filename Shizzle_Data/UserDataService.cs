@@ -13,33 +13,46 @@ namespace Shizzle.Data
     {
         public IUser CreateUser(string name, string email, string password)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string query = @$"INSERT INTO `user`(`name`, `email`, `password`, `biography`) VALUES
+    ('{name}', '{email}', '{password}', 'Hello there!');";
+
+                MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
+
+                command.ExecuteNonQuery();
+
+                return GetUser((uint) command.LastInsertedId);
+
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine(e.ToString());
+                return null;
+            }
         }
 
-        public void DeleteUser(int id, string password)
+        public void DeleteUser(uint id, string password)
         {
             throw new NotImplementedException();
         }
 
-        public IUser GetUser(int id)
+        
+        public IUser GetUser(uint id)
         {
             try
             {
                 string query = $"SELECT * FROM `user` WHERE `id`={id} LIMIT 1;";
 
+
                 MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
 
+                
                 MySqlDataReader reader = command.ExecuteReader();
 
-                if (!reader.Read())
-                    return null;
+                IUser user = reader.GetUser();
 
-                User user = new User(
-                    reader.GetInt32("id"),
-                    reader.GetString("name"),
-                    reader.GetString("email"),
-                    reader.GetString("password"),
-                    reader.GetString("biography"));
+                reader.Close();
 
                 return user;
 
@@ -53,32 +66,89 @@ namespace Shizzle.Data
 
         public IUser GetUser(string email)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string query = $"SELECT * FROM `user` WHERE `email`={email} LIMIT 1;";
+
+                MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
+
+                MySqlDataReader reader = command.ExecuteReader();
+
+                IUser user = reader.GetUser();
+
+                reader.Close();
+
+                return user;
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine(e.ToString());
+                return null;
+            }
         }
 
-        public void SetBiography(int id, string biography)
+        public void SetBiography(uint id, string biography)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string query = $"UPDATE `user` SET `biography`='{biography}' WHERE `id`={id};";
+
+                MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
+
+                command.ExecuteNonQuery();
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine(e.ToString());
+            }
         }
 
-        public void SetEmail(int id, string email)
+        public void SetEmail(uint id, string email)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string query = $"UPDATE `user` SET `email`='{email}' WHERE `id`={id};";
+
+                MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
+
+                command.ExecuteNonQuery();
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine(e.ToString());
+            }
         }
 
-        public void SetName(int id, string name)
+        public void SetName(uint id, string name)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string query = $"UPDATE `user` SET `name`='{name}' WHERE `id`={id};";
+
+                MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
+
+                command.ExecuteNonQuery();
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine(e.ToString());
+            }
         }
 
-        public void SetPassword(int id, string password)
+        public void SetPassword(uint id, string password)
         {
-            throw new NotImplementedException();
-        }
+            try
+            {
+                string query = $"UPDATE `user` SET `password`='{password}' WHERE `id`={id};";
 
-        public bool TryLogin(int id, string password)
-        {
-            throw new NotImplementedException();
+                MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
+
+                command.ExecuteNonQuery();
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine(e.ToString());
+            }
         }
     }
 }

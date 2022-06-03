@@ -10,7 +10,8 @@ namespace Shizzle.Structures
     {
         public string name { get; }
         public string description { get; }
-        public int ownerId { get; }
-        public int[] adminIds { get; }
+        public uint ownerId { get; }
+        public uint[] adminIds { get; }
+        public uint[] memberIds { get; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Shizzle.IData;
 using Shizzle.ILogic;
-using Shizzle.Structures;
+using Shizzle.Structures.LowLevel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,19 +11,19 @@ namespace Shizzle.Logic
 {
     public class CommentService : ICommentService
     {
-        public int authorityId { get; set; }
+        public uint authorityId { get; set; }
         private ICommentDataService dataService;
         
         public CommentService(ICommentDataService dataService)
         {
             this.dataService = dataService;
         }
-        public IComment CreateComment(string content, int postId)
+        public Structures.IComment CreateComment(string content, uint postId)
         {
             throw new NotImplementedException();
         }
 
-        public void DeleteComment(int id)
+        public void DeleteComment(uint id)
         {
             throw new NotImplementedException();
         }
@@ -33,17 +33,17 @@ namespace Shizzle.Logic
             throw new NotImplementedException();
         }
 
-        public IComment GetComment(int id)
+        public Structures.IComment GetComment(uint id)
         {
             throw new NotImplementedException();
         }
 
-        public IComment[] GetCommentsByPost(int postId)
+        public IEnumerable<Structures.IComment> GetCommentsByPost(uint postId)
         {
             throw new NotImplementedException();
         }
 
-        public IComment[] GetCommentsByUser(int userId)
+        public IEnumerable<Structures.IComment> GetCommentsByUser(uint userId)
         {
             throw new NotImplementedException();
         }

@@ -10,13 +10,13 @@ namespace Shizzle.ILogic
 	public interface IGroupService : ISecureService
 	{
 		public IGroup CreateGroup(string name, string dscription);
-		public void DeleteGroup(int id);
-		public IGroup GetGroup(int id);
-		public IGroup[] GetGroupsByUserParticipation(int userId);
-		public void AddAdmin(int id, int adminId);
-		public void RemoveAdmin(int id, int adminId);
-		public void SetOwner(int id, int ownerId);
-		public void SetName(int id, string name);
-		public void SetDescription(int id, string description);
+		public void DeleteGroup(uint id);
+		public IGroup GetGroup(uint id);
+		public IEnumerable<IGroup> GetGroupsByUserParticipation(uint userId);
+		public void AddAdmin(uint id, int adminId);
+		public void RemoveAdmin(uint id, uint adminId);
+		public void SetOwner(uint id, uint ownerId);
+		public void SetName(uint id, string name);
+		public void SetDescription(uint id, string description);
 	}
 }

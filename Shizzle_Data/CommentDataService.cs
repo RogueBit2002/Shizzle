@@ -10,12 +10,12 @@ namespace Shizzle.Data
 {
     public class CommentDataService : ICommentDataService
     {
-        public IComment CreateComment(string content, int postId)
+        public IComment CreateComment(string content, uint postId)
         {
             throw new NotImplementedException();
         }
 
-        public void DeleteComment(int id)
+        public void DeleteComment(uint id)
         {
             throw new NotImplementedException();
         }
@@ -25,17 +25,17 @@ namespace Shizzle.Data
             throw new NotImplementedException();
         }
 
-        public IComment GetComment(int id)
+        public IComment GetComment(uint id)
         {
             throw new NotImplementedException();
         }
 
-        public IComment[] GetCommentsByPost(int postId)
+        public IEnumerable<IComment> GetCommentsByPost(uint postId)
         {
             throw new NotImplementedException();
         }
 
-        public IComment[] GetCommentsByUser(int userId)
+        public IEnumerable<IComment> GetCommentsByUser(uint userId)
         {
             throw new NotImplementedException();
         }

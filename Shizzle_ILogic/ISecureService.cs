@@ -8,6 +8,6 @@ namespace Shizzle.ILogic
 {
     public interface ISecureService
     {
-        public int authorityId { get; set; }
+        public uint authorityId { get; set; }
     }
 }
