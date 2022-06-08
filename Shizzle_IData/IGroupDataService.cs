@@ -12,7 +12,7 @@ namespace Shizzle.IData
 		public IGroup CreateGroup(string name, string description, uint ownerId);
 		public void DeleteGroup(uint id);
 		public IGroup GetGroup(uint id);
-		public IGroup GetGroupByName(string name);
+		public IGroup GetGroup(string name);
 		public IEnumerable<IGroup> GetGroupsByUserParticipation(uint userId);
 		public void AddAdmin(uint id, uint adminId);
 		public void RemoveAdmin(uint id, uint adminId);

@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Shizzle_View
+namespace Shizzle.View
 {
     public class Startup
     {
@@ -50,7 +50,8 @@ namespace Shizzle_View
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Main}/{action=Index}/{id?}");
+
             });
         }
     }

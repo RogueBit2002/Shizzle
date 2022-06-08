@@ -28,7 +28,6 @@ namespace TempTest
             Console.WriteLine(post.title);
             if (post is IGroupPost)
                 Console.WriteLine("GroupPost!");
-
         }
     }
 }

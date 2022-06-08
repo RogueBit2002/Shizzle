@@ -1,6 +1,6 @@
 using System;
 
-namespace Shizzle_View.Models
+namespace Shizzle.View.Models
 {
     public class ErrorViewModel
     {

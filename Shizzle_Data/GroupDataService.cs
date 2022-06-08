@@ -140,7 +140,7 @@ namespace Shizzle.Data
             }
         }
 
-        public IGroup GetGroupByName(string name)
+        public IGroup GetGroup(string name)
         {
             try
             {

@@ -14,7 +14,10 @@ namespace Shizzle.Factory
     {
         public static ICommentService CreateService()
         {
-            return new CommentService(CreateDataService());
+            return new CommentService(
+                CreateDataService(), 
+                PostServiceFactory.CreateDataService(),
+                GroupServiceFactory.CreateDataService());
         }
 
         private static ICommentDataService CreateDataService()

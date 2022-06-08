@@ -25,7 +25,7 @@ namespace Shizzle.Logic
         }
         public Structures.IComment CreateComment(string content, uint postId)
         {
-            throw new NotImplementedException();
+            return dataService.CreateComment(content, postId, authorityId);
         }
 
         public void DeleteComment(uint id)
@@ -56,7 +56,13 @@ namespace Shizzle.Logic
 
         public void EditContent(uint id,string content)
         {
-            if()
+            IComment comment = dataService.GetComment(id);
+
+            if (comment.authorId != authorityId)
+                throw new SecurityException();
+
+            dataService.EditContent(id, content);
+            dataService.MarkAsEdited(id);
         }
 
         public Structures.IComment GetComment(uint id)

@@ -1,15 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Shizzle_View.Models;
+using Shizzle.View.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Shizzle_View.Controllers
+namespace Shizzle.View.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
 
@@ -20,6 +20,10 @@ namespace Shizzle_View.Controllers
 
         public IActionResult Index()
         {
+            HttpContext.Session.SetString("MyKey", "MyValue");
+            if (IsLoggedIn())
+                return View("Privacy");
+
             return View();
         }
 

@@ -26,12 +26,12 @@ namespace Shizzle.Logic
             return dataService.CreateUser(name, email, Security.HashPassword(password));
         }
 
-        public void DeleteUser(uint id, string password)
+        public void DeleteUser(uint id)
         {
             if (id != authorityId)
                 throw new SecurityException();
 
-            dataService.DeleteUser(id, password);
+            dataService.DeleteUser(id);
         }
 
         public Structures.IUser GetUser(uint id)

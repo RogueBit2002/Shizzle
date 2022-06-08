@@ -6,7 +6,7 @@ namespace Shizzle.ILogic
 	public interface IUserService : ISecureService
 	{
 		public IUser CreateUser(string name, string email, string password);
-		public void DeleteUser(uint id, string password);
+		public void DeleteUser(uint id);
 		public IUser GetUser(uint id);
 		public IUser GetUser(string email);
 		public void SetName(uint id, string name);

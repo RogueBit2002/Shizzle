@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+	<RootNamespace>Shizzle.View</RootNamespace>
   </PropertyGroup>
 
 
@@ -9,5 +10,11 @@
 		<ProjectReference Include="..\Shizzle_ILogic\Shizzle_ILogic.csproj" />
 		<ProjectReference Include="..\Shizzle_Factory\Shizzle_Factory.csproj" />
 		<ProjectReference Include="..\Shizzle_Structures\Shizzle_Structures.csproj" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <Folder Include="Views\Post\" />
+	  <Folder Include="Views\User\" />
 	</ItemGroup>
 </Project>

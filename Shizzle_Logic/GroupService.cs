@@ -38,7 +38,10 @@ namespace Shizzle.Logic
 
         public Structures.IGroup CreateGroup(string name, string description)
         {
-            throw new NotImplementedException();
+            if (GetGroup(name) != null)
+                throw new ArgumentException();
+
+            return dataService.CreateGroup(name, description, authorityId);
         }
 
         public void DeleteGroup(uint id)
@@ -107,9 +110,9 @@ namespace Shizzle.Logic
             dataService.SetOwner(id, ownerId);
         }
 
-        public Structures.IGroup GetGroupByName(string name)
+        public Structures.IGroup GetGroup(string name)
         {
-            return dataService.GetGroupByName(name);
+            return dataService.GetGroup(name);
         }
     }
 }
