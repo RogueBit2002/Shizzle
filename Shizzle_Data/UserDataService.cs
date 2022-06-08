@@ -32,9 +32,20 @@ namespace Shizzle.Data
             }
         }
 
-        public void DeleteUser(uint id, string password)
+        public void DeleteUser(uint id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string query = $"UPDATE `delete` SET `deleted`=1 WHERE `id`={id};";
+
+                MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
+
+                command.ExecuteNonQuery();
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine(e.ToString());
+            }
         }
 
         

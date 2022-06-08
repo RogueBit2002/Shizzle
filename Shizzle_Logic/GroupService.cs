@@ -1,9 +1,10 @@
 ﻿using Shizzle.IData;
 using Shizzle.ILogic;
-using Shizzle.Structures;
+using Shizzle.Structures.LowLevel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,49 +21,95 @@ namespace Shizzle.Logic
         }
 
 
-        public void AddAdmin(uint id, int adminId)
+        public void AddAdmin(uint id, uint adminId)
         {
-            throw new NotImplementedException();
+            IGroup group = dataService.GetGroup(id);
+            
+            if (group.ownerId != authorityId)
+                throw new SecurityException();
+
+            if (group.adminIds.Contains(adminId))
+                return;
+
+            dataService.AddAdmin(id, adminId);
+
+
         }
 
-        public IGroup CreateGroup(string name, string dscription)
+        public Structures.IGroup CreateGroup(string name, string description)
         {
             throw new NotImplementedException();
         }
 
         public void DeleteGroup(uint id)
         {
-            throw new NotImplementedException();
+            IGroup group = dataService.GetGroup(id);
+
+            if (group.ownerId != authorityId)
+                throw new SecurityException();
+
+            dataService.DeleteGroup(id);
         }
 
-        public IGroup GetGroup(uint id)
+        public Structures.IGroup GetGroup(uint id)
         {
             return dataService.GetGroup(id);
         }
 
         public IEnumerable<Structures.IGroup> GetGroupsByUserParticipation(uint userId)
         {
-            throw new NotImplementedException();
+            return dataService.GetGroupsByUserParticipation(userId);
         }
 
         public void RemoveAdmin(uint id, uint adminId)
         {
-            throw new NotImplementedException();
+            IGroup group = dataService.GetGroup(id);
+
+            if (group.ownerId != authorityId)
+                throw new SecurityException();
+
+            if (!group.adminIds.Contains(adminId))
+                return;
+
+            dataService.RemoveAdmin(id, adminId);
         }
 
         public void SetDescription(uint id, string description)
         {
-            throw new NotImplementedException();
+            IGroup group = dataService.GetGroup(id);
+
+            if (group.ownerId != authorityId)
+                throw new SecurityException();
+
+            dataService.SetDescription(id, description);
         }
 
-        public void SetName(uint id, string name)
+        /*public void SetName(uint id, string name)
         {
-            throw new NotImplementedException();
-        }
+            IGroup group = dataService.GetGroup(id);
+
+            if (group.ownerId != authorityId)
+                throw new SecurityException();
+
+            dataService.SetName(id, name);
+        }*/
 
         public void SetOwner(uint id, uint ownerId)
         {
-            throw new NotImplementedException();
+            IGroup group = dataService.GetGroup(id);
+
+            if (group.ownerId != authorityId)
+                throw new SecurityException();
+
+            if (!group.adminIds.Contains(ownerId))
+                throw new ArgumentException();
+
+            dataService.SetOwner(id, ownerId);
+        }
+
+        public Structures.IGroup GetGroupByName(string name)
+        {
+            return dataService.GetGroupByName(name);
         }
     }
 }

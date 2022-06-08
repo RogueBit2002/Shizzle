@@ -13,27 +13,92 @@ namespace Shizzle.Data
     {
         public IPost CreatePost(string title, string content, uint authorId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string query = @$"INSERT INTO `post`(`title`, `content`, `author_id`) VALUES
+    ('{title}', '{content}', {authorId});";
+
+                MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
+
+                command.ExecuteNonQuery();
+
+                return GetPost((uint)command.LastInsertedId);
+
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine(e.ToString());
+                return null;
+            }
         }
 
-        public IPost CreatePost(string title, string content, uint authorId, uint groupId)
+        public IGroupPost CreatePost(string title, string content, uint authorId, uint groupId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string query = @$"INSERT INTO `post`(`title`, `content`, `author_id`,`group_id`) VALUES
+    ('{title}', '{content}', {authorId}, {groupId});";
+
+                MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
+
+                command.ExecuteNonQuery();
+
+                return GetPost((uint)command.LastInsertedId) as IGroupPost;
+
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine(e.ToString());
+                return null;
+            }
         }
 
         public void DeletePost(uint id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string query = $"UPDATE `post` SET `deleted`=1 WHERE `id`={id};";
+
+                MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
+
+                command.ExecuteNonQuery();
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine(e.ToString());
+            }
         }
 
         public void EditContent(uint id, string content)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string query = $"UPDATE `post` SET `content`='{content}' WHERE `id`={id};";
+
+                MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
+
+                command.ExecuteNonQuery();
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine(e.ToString());
+            }
         }
 
         public void EditTitle(uint id, string title)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string query = $"UPDATE `post` SET `title`='{title}' WHERE `id`={id};";
+
+                MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
+
+                command.ExecuteNonQuery();
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine(e.ToString());
+            }
         }
 
         public IPost GetPost(uint id)
@@ -61,14 +126,57 @@ namespace Shizzle.Data
             }
         }
 
-        public IEnumerable<IPost> GetPostsByGroup(uint groupId)
+        public IEnumerable<IGroupPost> GetPostsByGroup(uint groupId)
         {
+            
+            try
+            {
+                string query = $"SELECT * FROM `post` WHERE `group_id`={groupId};";
+
+                MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
+
+
+                MySqlDataReader reader = command.ExecuteReader();
+
+                IEnumerable<IGroupPost> posts = reader.GetPosts().Cast<IGroupPost>();
+
+                reader.Close();
+
+                return posts;
+
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+
             return null;
         }
 
         public IEnumerable<IPost> GetPostsByUser(uint userId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string query = $"SELECT * FROM `post` WHERE `author_id`={userId};";
+
+                MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
+
+
+                MySqlDataReader reader = command.ExecuteReader();
+
+                IEnumerable<IPost> posts = reader.GetPosts();
+
+                reader.Close();
+
+                return posts;
+
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+
+            return null;
         }
 
         public void MarkAsEdited(uint id, bool edited = true)

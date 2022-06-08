@@ -9,11 +9,12 @@ namespace Shizzle.IData
 {
     public interface ICommentDataService
     {
-        public IComment CreateComment(string content, uint postId);
+        public IComment CreateComment(string content, uint postId, uint authorId);
         public void DeleteComment(uint id);
         public IComment GetComment(uint id);
         public IEnumerable<IComment> GetCommentsByPost(uint postId);
         public IEnumerable<IComment> GetCommentsByUser(uint userId);
-        public void EditContent(string content);
+        public void EditContent(uint id, string content);
+        public void MarkAsEdited(uint id, bool edited = true);
     }
 }

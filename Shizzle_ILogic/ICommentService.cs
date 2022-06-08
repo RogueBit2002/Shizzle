@@ -14,7 +14,7 @@ namespace Shizzle.ILogic
         public IComment GetComment(uint id);
         public IEnumerable<IComment> GetCommentsByPost(uint postId);
         public IEnumerable<IComment> GetCommentsByUser(uint userId);
-        public void EditContent(string content);
+        public void EditContent(uint id, string content);
 
     }
 }

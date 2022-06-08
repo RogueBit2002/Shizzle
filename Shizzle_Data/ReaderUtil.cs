@@ -100,5 +100,29 @@ namespace Shizzle.Data
 
         }
         #endregion
+
+        #region Comment
+        public static IEnumerable<Comment> GetComments(this MySqlDataReader reader)
+        {
+            Comment comment;
+            while ((comment = GetComment(reader)) != null)
+                yield return comment;
+        }
+
+        public static Comment GetComment(this MySqlDataReader reader)
+        {
+            if (!reader.Read())
+                return null;
+
+            return new Comment(
+                reader.GetUInt32("id"),
+                reader.GetString("content"),
+                reader.GetUInt32("author_id"),
+                reader.GetUInt32("post_id"),
+                reader.GetDateTime("date"),
+                reader.GetBoolean("edited"),
+                reader.GetBoolean("deleted"));
+        }
+        #endregion
     }
 }

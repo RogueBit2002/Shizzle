@@ -10,7 +10,7 @@ namespace Shizzle.IData
 	public interface IUserDataService
 	{
 		public IUser CreateUser(string name, string email, string password);
-		public void DeleteUser(uint id, string password);
+		public void DeleteUser(uint id);
 		public IUser GetUser(uint id);
 		public IUser GetUser(string email);
 		public void SetName(uint id, string name);
