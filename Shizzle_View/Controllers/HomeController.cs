@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Shizzle.View.Controllers
 {
-    public class HomeController : BaseController
+    public class HomeController : AuthController
     {
         private readonly ILogger<HomeController> _logger;
 
@@ -20,9 +20,8 @@ namespace Shizzle.View.Controllers
 
         public IActionResult Index()
         {
-            HttpContext.Session.SetString("MyKey", "MyValue");
-            if (IsLoggedIn())
-                return View("Privacy");
+            if (!IsLoggedIn())
+                return RedirectToLoginPage();
 
             return View();
         }
@@ -32,10 +31,6 @@ namespace Shizzle.View.Controllers
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        
     }
 }

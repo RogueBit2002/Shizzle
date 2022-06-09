@@ -93,13 +93,13 @@ namespace Shizzle.Data
         {
             try
             {
-                string query = $"SELECT * FROM `post` WHERE `post_id`={postId};";
+                string query = $"SELECT * FROM `comment` WHERE `post_id`={postId};";
 
                 MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
 
                 MySqlDataReader reader = command.ExecuteReader();
 
-                IEnumerable<IComment> comments = reader.GetComments();
+                IEnumerable<IComment> comments = reader.GetComments().ToList();
 
                 reader.Close();
 
@@ -116,13 +116,13 @@ namespace Shizzle.Data
         {
             try
             {
-                string query = $"SELECT * FROM `post` WHERE `author_id`={userId};";
+                string query = $"SELECT * FROM `comment` WHERE `author_id`={userId};";
 
                 MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
 
                 MySqlDataReader reader = command.ExecuteReader();
 
-                IEnumerable<IComment> comments = reader.GetComments();
+                IEnumerable<IComment> comments = reader.GetComments().ToList();
 
                 reader.Close();
 

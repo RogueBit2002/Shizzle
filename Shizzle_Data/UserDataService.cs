@@ -79,7 +79,7 @@ namespace Shizzle.Data
         {
             try
             {
-                string query = $"SELECT * FROM `user` WHERE `email`={email} LIMIT 1;";
+                string query = $"SELECT * FROM `user` WHERE `email`='{email}' LIMIT 1;";
 
                 MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
 

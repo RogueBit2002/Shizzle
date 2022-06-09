@@ -21,6 +21,9 @@ namespace Shizzle.Data
 
         public static User GetUser(this MySqlDataReader reader)
         {
+            if (reader.IsClosed)
+                return null;
+
             if (!reader.Read())
                 return null;
             
@@ -45,6 +48,9 @@ namespace Shizzle.Data
 
         public static Post GetPost(this MySqlDataReader reader)
         {
+            if (reader.IsClosed)
+                return null;
+
             if (!reader.Read())
                 return null;
 
@@ -85,6 +91,9 @@ namespace Shizzle.Data
 
         public static Group GetGroup(this MySqlDataReader reader)
         {
+            if (reader.IsClosed)
+                return null;
+
             if (!reader.Read())
                 return null;
 
@@ -111,6 +120,9 @@ namespace Shizzle.Data
 
         public static Comment GetComment(this MySqlDataReader reader)
         {
+            if (reader.IsClosed)
+                return null;
+
             if (!reader.Read())
                 return null;
 

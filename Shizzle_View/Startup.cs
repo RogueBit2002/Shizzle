@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Shizzle.Factory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,7 @@ namespace Shizzle.View
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddSession(); //Required for sessions
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -35,7 +37,7 @@ namespace Shizzle.View
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Main/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
@@ -44,6 +46,7 @@ namespace Shizzle.View
 
             app.UseRouting();
 
+            app.UseSession(); //Required for sessions
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -53,6 +56,17 @@ namespace Shizzle.View
                     pattern: "{controller=Main}/{action=Index}/{id?}");
 
             });
+
+            PopulateServiceLocator();   
+        }
+
+        private void PopulateServiceLocator()
+        {
+            ServiceLocator.Clear();
+            ServiceLocator.AddService(UserServiceFactory.CreateService());
+            ServiceLocator.AddService(PostServiceFactory.CreateService());
+            ServiceLocator.AddService(GroupServiceFactory.CreateService());
+            ServiceLocator.AddService(CommentServiceFactory.CreateService());
         }
     }
 }

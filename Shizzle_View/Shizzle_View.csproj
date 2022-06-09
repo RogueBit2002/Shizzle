@@ -12,9 +12,4 @@
 		<ProjectReference Include="..\Shizzle_Structures\Shizzle_Structures.csproj" />
 	</ItemGroup>
 
-
-	<ItemGroup>
-	  <Folder Include="Views\Post\" />
-	  <Folder Include="Views\User\" />
-	</ItemGroup>
 </Project>

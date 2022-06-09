@@ -15,11 +15,19 @@ namespace TempTest
             IPostService postService = PostServiceFactory.CreateService();
             IGroupService groupService = GroupServiceFactory.CreateService();
 
+
+            IUser user = userService.GetUser("laurens@kruis.name");
             LogPostInfo(postService.GetPost(2));
 
             IGroup group = groupService.GetGroup(1);
 
             Console.WriteLine(group.name);
+
+
+            foreach(IPost post in )
+            {
+                LogPostInfo(post);
+            }
         }
 
 

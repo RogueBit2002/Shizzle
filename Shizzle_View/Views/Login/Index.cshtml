@@ -1,0 +1,16 @@
+﻿@{
+    @model LoginModel; 
+    ViewData["Title"] = "Login";
+}
+
+<h1>Login</h1>
+@if(Model.failedAttempt)
+{
+    <p>Invalid email and/or password.</p>
+}
+
+<form asp-controller="Login" asp-action="TryLogin">
+    <input type="text" asp-for="email" />
+    <input type="password" asp-for="password" />
+    <input type="submit" value="Eyo"/>
+</form>

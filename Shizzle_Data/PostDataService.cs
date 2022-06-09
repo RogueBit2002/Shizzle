@@ -164,8 +164,9 @@ namespace Shizzle.Data
 
                 MySqlDataReader reader = command.ExecuteReader();
 
-                IEnumerable<IPost> posts = reader.GetPosts();
+                IEnumerable<IPost> posts = reader.GetPosts().ToList(); //Linq uses deferred execution, so this fixes things going out of scope
 
+                
                 reader.Close();
 
                 return posts;

@@ -182,7 +182,7 @@ namespace Shizzle.Data
 
                 MySqlDataReader reader = command.ExecuteReader();
 
-                IEnumerable<IGroup> groups = reader.GetGroups();
+                IEnumerable<IGroup> groups = reader.GetGroups().ToList();
 
                 reader.Close();
 

@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Shizzle.View.Models;
+using System.Diagnostics;
 
 namespace Shizzle.View.Controllers
 {
@@ -6,7 +8,13 @@ namespace Shizzle.View.Controllers
     {
         public IActionResult Index()
         {
-            return View("../Home/Index");
+            return View("../Index");
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
