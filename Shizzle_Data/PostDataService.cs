@@ -15,10 +15,14 @@ namespace Shizzle.Data
         {
             try
             {
-                string query = @$"INSERT INTO `post`(`title`, `content`, `author_id`) VALUES
-    ('{title}', '{content}', {authorId});";
+                string query = @"INSERT INTO `post`(`title`, `content`, `author_id`) VALUES
+    (@title, @content, @authorId);";
 
                 MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
+
+                command.Parameters.AddWithValue("title", title);
+                command.Parameters.AddWithValue("content", content);
+                command.Parameters.AddWithValue("authorId", authorId);
 
                 command.ExecuteNonQuery();
 
@@ -36,11 +40,18 @@ namespace Shizzle.Data
         {
             try
             {
-                string query = @$"INSERT INTO `post`(`title`, `content`, `author_id`,`group_id`) VALUES
-    ('{title}', '{content}', {authorId}, {groupId});";
+                string query = @"INSERT INTO `post`(`title`, `content`, `author_id`,`group_id`) VALUES
+    (@title, @content, @authorId, @groupId);";
+
+                
 
                 MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
 
+                command.Parameters.AddWithValue("title", title);
+                command.Parameters.AddWithValue("content", content);
+                command.Parameters.AddWithValue("authorId", authorId);
+                command.Parameters.AddWithValue("groupId", groupId);
+                
                 command.ExecuteNonQuery();
 
                 return GetPost((uint)command.LastInsertedId) as IGroupPost;
@@ -57,9 +68,11 @@ namespace Shizzle.Data
         {
             try
             {
-                string query = $"UPDATE `post` SET `deleted`=1 WHERE `id`={id};";
+                string query = $"UPDATE `post` SET `deleted`=1 WHERE `id`=@id;";
 
                 MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
+
+                command.Parameters.AddWithValue("id", id);
 
                 command.ExecuteNonQuery();
             }
@@ -73,9 +86,12 @@ namespace Shizzle.Data
         {
             try
             {
-                string query = $"UPDATE `post` SET `content`='{content}' WHERE `id`={id};";
+                string query = $"UPDATE `post` SET `content`=@content WHERE `id`=@id;";
 
                 MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
+
+                command.Parameters.AddWithValue("id", id);
+                command.Parameters.AddWithValue("content", content);
 
                 command.ExecuteNonQuery();
             }
@@ -89,9 +105,12 @@ namespace Shizzle.Data
         {
             try
             {
-                string query = $"UPDATE `post` SET `title`='{title}' WHERE `id`={id};";
+                string query = $"UPDATE `post` SET `title`=@title WHERE `id`=@id;";
 
                 MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
+
+                command.Parameters.AddWithValue("title", title);
+                command.Parameters.AddWithValue("id", id);
 
                 command.ExecuteNonQuery();
             }
@@ -105,10 +124,10 @@ namespace Shizzle.Data
         {
             try
             {
-                string query = $"SELECT * FROM `post` WHERE `id`={id} LIMIT 1;";
+                string query = "SELECT * FROM `post` WHERE `id`=@id LIMIT 1;";
 
                 MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
-
+                command.Parameters.AddWithValue("id", id);
 
                 MySqlDataReader reader = command.ExecuteReader();
 
@@ -131,10 +150,11 @@ namespace Shizzle.Data
             
             try
             {
-                string query = $"SELECT * FROM `post` WHERE `group_id`={groupId};";
+                string query = "SELECT * FROM `post` WHERE `group_id`=@groupId;";
 
                 MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
 
+                command.Parameters.AddWithValue("groupId", groupId);
 
                 MySqlDataReader reader = command.ExecuteReader();
 
@@ -157,10 +177,11 @@ namespace Shizzle.Data
         {
             try
             {
-                string query = $"SELECT * FROM `post` WHERE `author_id`={userId};";
+                string query = "SELECT * FROM `post` WHERE `author_id`=@userId;";
 
                 MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
 
+                command.Parameters.AddWithValue("userId", userId);
 
                 MySqlDataReader reader = command.ExecuteReader();
 
@@ -184,10 +205,13 @@ namespace Shizzle.Data
         {
             try
             {
-                string query = $"UPDATE `post` SET `edited`='{edited}' WHERE `id`={id};";
+                string query = "UPDATE `post` SET `edited`=@edited WHERE `id`=@id;";
 
                 MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
 
+                command.Parameters.AddWithValue("id", id);
+                command.Parameters.AddWithValue("edited", edited);
+                
                 command.ExecuteNonQuery();
             }
             catch (MySqlException e)

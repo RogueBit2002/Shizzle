@@ -5,12 +5,8 @@
 }
 
 <h1>@Model.post.title</h1>
-<span>Posted by <a href="/user?id=@Model.author.id">@Model.author.name</a> at @Model.post.date</span>
-<br /> <!--Temporary break-->
-@if(Model is GroupPostModel)
-{
-    <span>Posted in <a href="/group?id=@((Model as GroupPostModel).group.id)">@((Model as GroupPostModel).group.name)</a></span>
-}
+<span>Posted by <a href="/user?id=@Model.author.id">@Model.author.name</a> 
+    @if (Model is GroupPostModel) {<text>in</text> <a href="/group?id=@((Model as GroupPostModel).group.id)">@((Model as GroupPostModel).group.name)</a>} at @Model.post.date</span>
 <br /> <!--Temporary break-->
 <span>@Model.post.content</span>
 <br /> <!--Temporary break-->

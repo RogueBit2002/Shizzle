@@ -15,10 +15,14 @@ namespace Shizzle.Data
         {
             try
             {
-                string query = @$"INSERT INTO `comment`(`content`, `post_id`, `author_id`) VALUES
-    ('{content}', {postId}, {authorId});";
+                string query = @"INSERT INTO `comment`(`content`, `post_id`, `author_id`) VALUES
+    (@content, @postId, @authorId);";
 
                 MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
+
+                command.Parameters.AddWithValue("content", content);
+                command.Parameters.AddWithValue("postId", postId);
+                command.Parameters.AddWithValue("authorId", authorId);
 
                 command.ExecuteNonQuery();
 
@@ -37,9 +41,11 @@ namespace Shizzle.Data
         {
             try
             {
-                string query = $"UPDATE `comment` SET `deleted`=1 WHERE `id`={id};";
+                string query = "UPDATE `comment` SET `deleted`=1 WHERE `id`=@id;";
 
                 MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
+
+                command.Parameters.AddWithValue("id", id);
 
                 command.ExecuteNonQuery();
             }
@@ -53,9 +59,12 @@ namespace Shizzle.Data
         {
             try
             {
-                string query = $"UPDATE `comment` SET `content`={content} WHERE `id`={id};";
+                string query = "UPDATE `comment` SET `content`=@content WHERE `id`=@id;";
 
                 MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
+
+                command.Parameters.AddWithValue("id", id);
+                command.Parameters.AddWithValue("content", content);
 
                 command.ExecuteNonQuery();
             }
@@ -69,10 +78,10 @@ namespace Shizzle.Data
         {
             try
             {
-                string query = $"SELECT * FROM `comment` WHERE `id`={id} LIMIT 1;";
+                string query = "SELECT * FROM `comment` WHERE `id`=@id LIMIT 1;";
 
                 MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
-
+                command.Parameters.AddWithValue("id", id);
 
                 MySqlDataReader reader = command.ExecuteReader();
 
@@ -93,11 +102,15 @@ namespace Shizzle.Data
         {
             try
             {
-                string query = $"SELECT * FROM `comment` WHERE `post_id`={postId};";
+                string query = "SELECT * FROM `comment` WHERE `post_id`=@postId;";
 
                 MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
 
+                command.Parameters.AddWithValue("postId", postId);
+
                 MySqlDataReader reader = command.ExecuteReader();
+
+                
 
                 IEnumerable<IComment> comments = reader.GetComments().ToList();
 
@@ -116,9 +129,11 @@ namespace Shizzle.Data
         {
             try
             {
-                string query = $"SELECT * FROM `comment` WHERE `author_id`={userId};";
+                string query = "SELECT * FROM `comment` WHERE `author_id`=@userId;";
 
                 MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
+
+                command.Parameters.AddWithValue("userId", userId);
 
                 MySqlDataReader reader = command.ExecuteReader();
 
@@ -139,10 +154,12 @@ namespace Shizzle.Data
         {
             try
             {
-                string query = $"UPDATE `comment` SET `edited`='{edited}' WHERE `id`={id};";
+                string query = "UPDATE `comment` SET `edited`=@edited WHERE `id`=@id;";
 
                 MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
 
+                command.Parameters.AddWithValue("edited", edited);
+                command.Parameters.AddWithValue("id", id);
                 command.ExecuteNonQuery();
             }
             catch (MySqlException e)

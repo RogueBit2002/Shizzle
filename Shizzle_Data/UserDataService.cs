@@ -15,10 +15,14 @@ namespace Shizzle.Data
         {
             try
             {
-                string query = @$"INSERT INTO `user`(`name`, `email`, `password`, `biography`) VALUES
-    ('{name}', '{email}', '{password}', 'Hello there!');";
+                string query = @"INSERT INTO `user`(`name`, `email`, `password`, `biography`) VALUES
+    (@name, @email, @password, 'Hello there!');";
 
                 MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
+
+                command.Parameters.AddWithValue("name", name);
+                command.Parameters.AddWithValue("email", email);
+                command.Parameters.AddWithValue("password", password);
 
                 command.ExecuteNonQuery();
 
@@ -36,9 +40,11 @@ namespace Shizzle.Data
         {
             try
             {
-                string query = $"UPDATE `delete` SET `deleted`=1 WHERE `id`={id};";
+                string query = "UPDATE `delete` SET `deleted`=1 WHERE `id`=@id;";
 
                 MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
+
+                command.Parameters.AddWithValue("id", id);
 
                 command.ExecuteNonQuery();
             }
@@ -53,11 +59,11 @@ namespace Shizzle.Data
         {
             try
             {
-                string query = $"SELECT * FROM `user` WHERE `id`={id} LIMIT 1;";
+                string query = "SELECT * FROM `user` WHERE `id`=@id LIMIT 1;";
 
 
                 MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
-
+                command.Parameters.AddWithValue("id", id);
                 
                 MySqlDataReader reader = command.ExecuteReader();
 
@@ -79,10 +85,11 @@ namespace Shizzle.Data
         {
             try
             {
-                string query = $"SELECT * FROM `user` WHERE `email`='{email}' LIMIT 1;";
+                string query = "SELECT * FROM `user` WHERE `email`=@email LIMIT 1;";
 
                 MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
 
+                command.Parameters.AddWithValue("email", email);
                 MySqlDataReader reader = command.ExecuteReader();
 
                 IUser user = reader.GetUser();
@@ -102,10 +109,13 @@ namespace Shizzle.Data
         {
             try
             {
-                string query = $"UPDATE `user` SET `biography`='{biography}' WHERE `id`={id};";
+                string query = "UPDATE `user` SET `biography`=@biography WHERE `id`=@id;";
 
                 MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
 
+                command.Parameters.AddWithValue("id", id);
+                command.Parameters.AddWithValue("biography", biography);
+                
                 command.ExecuteNonQuery();
             }
             catch (MySqlException e)
@@ -118,10 +128,13 @@ namespace Shizzle.Data
         {
             try
             {
-                string query = $"UPDATE `user` SET `email`='{email}' WHERE `id`={id};";
+                string query = "UPDATE `user` SET `email`=@email WHERE `id`=@id;";
 
                 MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
 
+                command.Parameters.AddWithValue("id", id);
+                command.Parameters.AddWithValue("email", email);
+                
                 command.ExecuteNonQuery();
             }
             catch (MySqlException e)
@@ -134,9 +147,12 @@ namespace Shizzle.Data
         {
             try
             {
-                string query = $"UPDATE `user` SET `name`='{name}' WHERE `id`={id};";
+                string query = "UPDATE `user` SET `name`=@name WHERE `id`=@id;";
 
                 MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
+
+                command.Parameters.AddWithValue("id", id);
+                command.Parameters.AddWithValue("name", name);
 
                 command.ExecuteNonQuery();
             }
@@ -150,9 +166,12 @@ namespace Shizzle.Data
         {
             try
             {
-                string query = $"UPDATE `user` SET `password`='{password}' WHERE `id`={id};";
+                string query = "UPDATE `user` SET `password`=@password WHERE `id`=@id;";
 
                 MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
+
+                command.Parameters.AddWithValue("id", id);
+                command.Parameters.AddWithValue("password", password);
 
                 command.ExecuteNonQuery();
             }

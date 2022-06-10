@@ -15,10 +15,13 @@ namespace Shizzle.Data
         {
             try
             {
-                string query = @$"INSERT INTO `group_admin_link`(`group_id`, `admin_id`) VALUES
-    ({id}, {adminId});";
+                string query = @"INSERT INTO `group_admin_link`(`group_id`, `admin_id`) VALUES
+    (@id, @adminId);";
 
                 MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
+
+                command.Parameters.AddWithValue("id", id);
+                command.Parameters.AddWithValue("adminId", adminId);
 
                 command.ExecuteNonQuery();
 
@@ -33,10 +36,14 @@ namespace Shizzle.Data
         {
             try
             {
-                string query = @$"INSERT INTO `group`(`name`, `description`, `owner_id`) VALUES
-    ('{name}', '{description}', {ownerId});";
+                string query = @"INSERT INTO `group`(`name`, `description`, `owner_id`) VALUES
+    (@name, @description, @ownerId);";
 
                 MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
+
+                command.Parameters.AddWithValue("name", name);
+                command.Parameters.AddWithValue("description", description);
+                command.Parameters.AddWithValue("ownerId", ownerId);
 
                 command.ExecuteNonQuery();
 
@@ -55,9 +62,11 @@ namespace Shizzle.Data
         {
             try
             {
-                string query = $"UPDATE `group` SET `deleted`=1 WHERE `id`={id};";
+                string query = "UPDATE `group` SET `deleted`=1 WHERE `id`=@id;";
 
                 MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
+
+                command.Parameters.AddWithValue("id", id);
 
                 command.ExecuteNonQuery();
             }
@@ -69,9 +78,11 @@ namespace Shizzle.Data
 
         private uint[] GetMembers(uint id)
         {
-            string query = $"SELECT * FROM `group_member_link` WHERE `group_id`={id};";
+            string query = "SELECT * FROM `group_member_link` WHERE `group_id`=@id;";
 
             MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
+
+            command.Parameters.AddWithValue("id", id);
 
             MySqlDataReader reader = command.ExecuteReader();
 
@@ -88,9 +99,11 @@ namespace Shizzle.Data
 
         private uint[] GetAdmins(uint id)
         {
-            string query = $"SELECT * FROM `group_admin_link` WHERE `group_id`={id};";
+            string query = "SELECT * FROM `group_admin_link` WHERE `group_id`=@id;";
 
             MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
+
+            command.Parameters.AddWithValue("id", id);
 
             MySqlDataReader reader = command.ExecuteReader();
 
@@ -112,10 +125,11 @@ namespace Shizzle.Data
             
             try
             {
-                string query = $"SELECT * FROM `group` WHERE `id`={id} LIMIT 1;";
+                string query = "SELECT * FROM `group` WHERE `id`=@id LIMIT 1;";
 
                 MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
 
+                command.Parameters.AddWithValue("id", id);
 
                 MySqlDataReader reader = command.ExecuteReader();
 
@@ -144,10 +158,11 @@ namespace Shizzle.Data
         {
             try
             {
-                string query = $"SELECT * FROM `group` WHERE `name`='{name}' LIMIT 1;";
+                string query = "SELECT * FROM `group` WHERE `name`=@name LIMIT 1;";
 
                 MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
 
+                command.Parameters.AddWithValue("name", name);
 
                 MySqlDataReader reader = command.ExecuteReader();
 
@@ -176,9 +191,12 @@ namespace Shizzle.Data
         {
             try
             {
-                string query = $@"SELECT * FROM `group` WHERE `id` IN (SELECT `group_id` FROM `group_member_link` WHERE `member_id`={userId});";
+                string query = @"SELECT * FROM `group` WHERE `id` 
+IN (SELECT `group_id` FROM `group_member_link` WHERE `member_id`=@userId);";
 
                 MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
+
+                command.Parameters.AddWithValue("userId", userId);
 
                 MySqlDataReader reader = command.ExecuteReader();
 
@@ -200,9 +218,12 @@ namespace Shizzle.Data
         {
             try
             {
-                string query = $"DELETE FROM `post` WHERE `group_id`={id} AND `admin_id`={adminId};";
+                string query = "DELETE FROM `post` WHERE `group_id`=@id AND `admin_id`=@adminId;";
 
                 MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
+
+                command.Parameters.AddWithValue("id", id);
+                command.Parameters.AddWithValue("adminId", adminId);
 
                 command.ExecuteNonQuery();
             }
@@ -216,9 +237,12 @@ namespace Shizzle.Data
         {
             try
             {
-                string query = $"UPDATE `post` SET `description`={description} WHERE `id`={id};";
+                string query = "UPDATE `post` SET `description`=@description WHERE `id`=@id;";
 
                 MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
+
+                command.Parameters.AddWithValue("id", id);
+                command.Parameters.AddWithValue("description", description);
 
                 command.ExecuteNonQuery();
             }
@@ -248,9 +272,12 @@ namespace Shizzle.Data
         {
             try
             {
-                string query = $"UPDATE `post` SET `owner_id`={ownerId} WHERE `id`={id};";
+                string query = "UPDATE `post` SET `owner_id`=@ownerId WHERE `id`=@id;";
 
                 MySqlCommand command = new MySqlCommand(query, DatabaseConnectionProvider.GetConnection());
+
+                command.Parameters.AddWithValue("id", id);
+                command.Parameters.AddWithValue("ownerId", ownerId);
 
                 command.ExecuteNonQuery();
             }
