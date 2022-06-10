@@ -1,5 +1,6 @@
-﻿@{
-    @model LoginModel; 
+﻿@model LoginModel; 
+@{
+
     ViewData["Title"] = "Login";
 }
 
@@ -12,5 +13,6 @@
 <form asp-controller="Login" asp-action="TryLogin">
     <input type="text" asp-for="email" />
     <input type="password" asp-for="password" />
-    <input type="submit" value="Eyo"/>
+    <input type="hidden" asp-for="redirect" value="@Model.redirect"/>
+    <input type="submit" value="Login"/>
 </form>

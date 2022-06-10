@@ -1,0 +1,16 @@
+﻿@model RegisterModel
+@{
+	ViewData["Title"] = "Register";
+}
+
+
+<form asp-controller="Register" asp-action="TryRegister">
+    @if(Model.emailError != null)
+    {
+        <span>@Model.emailError</span>
+    }
+    <input type="text" asp-for="email" />
+    <input type="password" asp-for="password" />
+    <input type="text" asp-for="name" />
+    <input type="submit" value="Register"/>
+</form>

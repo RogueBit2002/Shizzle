@@ -16,7 +16,7 @@ namespace Shizzle.View.Controllers
             if (id == null)
                 return View("NotFound");
 
-            uint postId = 0;
+            uint postId;
 
             try
             {
@@ -31,16 +31,12 @@ namespace Shizzle.View.Controllers
             if (post == null)
                 return View("NotFound");
 
-            IUser user = ServiceLocator.Locate<IUserService>().GetUser(post.authorId);
-            IEnumerable<IComment> rawComments = ServiceLocator.Locate<ICommentService>().GetCommentsByPost(postId);
-            IGroup group = post is IGroupPost ? 
-                ServiceLocator.Locate<IGroupService>().GetGroup(
-                    ((IGroupPost)post).groupId) 
-                : null;
+
+            
 
             List<CommentModel> comments = new List<CommentModel>();
 
-            foreach(IComment comment in rawComments)
+            foreach(IComment comment in ServiceLocator.Locate<ICommentService>().GetCommentsByPost(postId))
             {
                 comments.Add(
                     new CommentModel(
@@ -51,7 +47,22 @@ namespace Shizzle.View.Controllers
                 );
             }
 
-            PostModel model = new PostModel(post, user, group, comments);
+            if(post is IGroupPost)
+            {
+                
+            }
+
+            PostModel model = post is IGroupPost ? 
+                new GroupPostModel(
+                    post, 
+                    ServiceLocator.Locate<IUserService>().GetUser(post.authorId),
+                    comments,
+                    ServiceLocator.Locate<IGroupService>().GetGroup(((IGroupPost)post).groupId)
+                )
+                : new PostModel(post,
+                    ServiceLocator.Locate<IUserService>().GetUser(post.authorId),
+                    comments);
+
             return View(model);
         }
     }

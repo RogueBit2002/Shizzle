@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using System.Web;
 
 namespace Shizzle.View.Controllers
 {
@@ -12,15 +13,13 @@ namespace Shizzle.View.Controllers
                 return false;
 
             return true;
-
-            
         }
 
-        protected IActionResult RedirectToLoginPage()
+        protected IActionResult RedirectToLoginPage(bool redirect = true)
         {
-            string path = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}{HttpContext.Request.Path}{HttpContext.Request.QueryString}";
-            SetRedirectAfterLogin(path);
-            return Redirect("/Login");
+            string path = redirect ?
+                $"/login?redirect={HttpUtility.UrlEncode($"{HttpContext.Request.Path}{HttpContext.Request.QueryString}")}" : "/login";
+            return Redirect(path);
         }
 
 
@@ -37,21 +36,6 @@ namespace Shizzle.View.Controllers
         protected void Logout()
         {
             HttpContext.Session.Remove(userIdKey);
-        }
-
-        protected void ClearRedirectAfterLogin()
-        {
-            HttpContext.Session.Remove("login-redirect");
-        }
-
-        protected void SetRedirectAfterLogin(string path)
-        {
-            HttpContext.Session.SetString("login-redirect", path);
-        }
-
-        protected string GetRedirectAfterLogin()
-        {
-            return HttpContext.Session.GetString("login-redirect");
         }
     }
 }

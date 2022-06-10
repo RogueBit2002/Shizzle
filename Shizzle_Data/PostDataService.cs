@@ -138,7 +138,7 @@ namespace Shizzle.Data
 
                 MySqlDataReader reader = command.ExecuteReader();
 
-                IEnumerable<IGroupPost> posts = reader.GetPosts().Cast<IGroupPost>();
+                IEnumerable<IGroupPost> posts = reader.GetPosts().Cast<IGroupPost>().ToList();
 
                 reader.Close();
 

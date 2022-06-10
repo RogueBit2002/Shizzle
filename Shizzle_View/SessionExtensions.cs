@@ -18,11 +18,6 @@ namespace Shizzle.View
             return data == null ? null : Encoding.UTF8.GetString(data);
         }
 
-        /*public static bool Has(this ISession session, string key)
-        {
-            return session.Get(key) != null;
-        }*/
-
         public static void SetInt32(this ISession session, string key, uint value)
         {
             session.Set(key, BitConverter.GetBytes(value));

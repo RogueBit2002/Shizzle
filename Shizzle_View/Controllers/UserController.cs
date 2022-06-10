@@ -18,12 +18,12 @@ namespace Shizzle.View.Controllers
             if (id == null)
                 return View("NotFound");
 
-            uint userId = 0;
+            uint userId;
 
             try
             {
                 userId = uint.Parse(id);
-            } catch(Exception e)
+            } catch
             {
                 return View("NotFound");
             }
@@ -34,9 +34,7 @@ namespace Shizzle.View.Controllers
                 return View("NotFound");
 
 
-            IEnumerable<IPost> posts = ServiceLocator.Locate<IPostService>().GetPostsByUser(userId);
-
-            UserModel model = new UserModel(user,posts);
+            UserModel model = new UserModel(user, ServiceLocator.Locate<IPostService>().GetPostsByUser(userId));
             return View(model);
         }
     }

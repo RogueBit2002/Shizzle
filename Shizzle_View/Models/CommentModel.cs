@@ -4,9 +4,9 @@ namespace Shizzle.View.Models
 {
     public class CommentModel
     {
-        public IComment comment;
-        public IUser author;
-        public IPost post;
+        public readonly IComment comment;
+        public readonly IUser author;
+        public readonly IPost post;
         
         public CommentModel(IComment comment, IUser author, IPost post)
         {

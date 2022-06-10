@@ -3,18 +3,13 @@ using System.Collections.Generic;
 
 namespace Shizzle.View.Models
 {
-    public class PostModel
+    public class PostModel : PostPreviewModel
     {
-        public IPost post;
-        public IUser author;
-        public IGroup group;
-        public IEnumerable<CommentModel> comments;
+        public readonly IEnumerable<CommentModel> comments;
 
-        public PostModel(IPost post, IUser author, IGroup group, IEnumerable<CommentModel> comments)
+        public PostModel(IPost post, IUser author, IEnumerable<CommentModel> comments)
+            : base(post, author)
         {
-            this.post = post;
-            this.author = author;
-            this.group = group;
             this.comments = comments;
         }
     }

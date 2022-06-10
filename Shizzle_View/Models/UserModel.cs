@@ -5,8 +5,8 @@ namespace Shizzle.View.Models
 {
     public class UserModel
     {
-        public IUser user;
-        public IEnumerable<IPost> posts;
+        public readonly IUser user;
+        public readonly IEnumerable<IPost> posts;
 
         public UserModel(IUser user, IEnumerable<IPost> posts)
         {

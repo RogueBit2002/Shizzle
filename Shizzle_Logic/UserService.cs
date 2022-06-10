@@ -23,6 +23,11 @@ namespace Shizzle.Logic
 
         public Structures.IUser CreateUser(string name, string email, string password)
         {
+            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+                throw new ArgumentException();
+            if (GetUser(email) != null)
+                throw new ArgumentException();
+
             return dataService.CreateUser(name, email, Security.HashPassword(password));
         }
 

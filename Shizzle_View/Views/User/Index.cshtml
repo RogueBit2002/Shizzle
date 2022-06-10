@@ -5,15 +5,15 @@
     ViewData["Title"] = $"\"{Model.user.name}\"";
 }
 
-<h1>@Model.user.name</h1>
+<h3>@Model.user.name</h3>
 <p>@Model.user.biography</p>
 
 <div>
     @foreach(IPost post in Model.posts)
     {
         <div>
-            <h2>@post.title</h2>
-            <h3>@post.date</h3>
+            <a href="/post?id=@post.id">@post.title</a>
+            <span>Posted at @post.date</span>
         </div>
     }
 

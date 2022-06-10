@@ -41,7 +41,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shizzle_LowLevelStructures"
 		{71D00906-C705-4DBA-A765-5C96D36900C6} = {71D00906-C705-4DBA-A765-5C96D36900C6}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TempTest", "TempTest\TempTest.csproj", "{F48B0A6F-339A-42CF-BD42-B900AD2B7801}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TempTest", "TempTest\TempTest.csproj", "{F48B0A6F-339A-42CF-BD42-B900AD2B7801}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

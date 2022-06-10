@@ -1,7 +1,4 @@
 ﻿@using Shizzle.Structures
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
 @model PostModel
 @{
     ViewData["Title"] = $"\"{Model.post.title}\"";
@@ -10,9 +7,9 @@
 <h1>@Model.post.title</h1>
 <span>Posted by <a href="/user?id=@Model.author.id">@Model.author.name</a> at @Model.post.date</span>
 <br /> <!--Temporary break-->
-@if(Model.group != null)
+@if(Model is GroupPostModel)
 {
-    <span>Posted in <a>@Model.group.name</a></span>
+    <span>Posted in <a href="/group?id=@((Model as GroupPostModel).group.id)">@((Model as GroupPostModel).group.name)</a></span>
 }
 <br /> <!--Temporary break-->
 <span>@Model.post.content</span>

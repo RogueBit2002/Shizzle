@@ -8,7 +8,7 @@ namespace Shizzle.View.Controllers
         {
             Logout();
 
-            return RedirectToLoginPage();
+            return RedirectToLoginPage(false);
         }
     }
 }

@@ -10,13 +10,14 @@ namespace Shizzle.View.Controllers
     public class LoginController : AuthController
     {
         private const string failedAttemptKey = "failed-login-attempt";
-        public IActionResult Index()
+        public IActionResult Index(string redirect)
         {
-            LoginModel model = new LoginModel();
-            model.failedAttempt = HttpContext.Session.Keys.Contains(failedAttemptKey);
+            LoginModel model = new LoginModel(
+                HttpContext.Session.Keys.Contains(failedAttemptKey),
+                redirect == null ? "/home" : redirect);
 
             HttpContext.Session.Remove(failedAttemptKey);
-            
+
             return View(model);
         }
 
@@ -24,7 +25,8 @@ namespace Shizzle.View.Controllers
         {
             string email = collection["email"];
             string password = collection["password"];
-
+            string redirect = collection["redirect"] == "" ? "/home" : collection["redirect"];
+            
             IUserService service = ServiceLocator.Locate<IUserService>();
 
             IUser user = service.GetUser(email);
@@ -39,8 +41,6 @@ namespace Shizzle.View.Controllers
                 SetCurrentUser(user.id);
                 HttpContext.Session.Remove(failedAttemptKey);
 
-                string redirect = GetRedirectAfterLogin() != null ? GetRedirectAfterLogin() : "/Home";
-                ClearRedirectAfterLogin();
                 return Redirect(redirect);
             }
 

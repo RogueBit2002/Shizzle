@@ -14,28 +14,9 @@ namespace TempTest
             IUserService userService = UserServiceFactory.CreateService();
             IPostService postService = PostServiceFactory.CreateService();
             IGroupService groupService = GroupServiceFactory.CreateService();
+            ICommentService commentService = CommentServiceFactory.CreateService();
 
-
-            IUser user = userService.GetUser("laurens@kruis.name");
-            LogPostInfo(postService.GetPost(2));
-
-            IGroup group = groupService.GetGroup(1);
-
-            Console.WriteLine(group.name);
-
-
-            foreach(IPost post in )
-            {
-                LogPostInfo(post);
-            }
         }
 
-
-        static void LogPostInfo(IPost post)
-        {
-            Console.WriteLine(post.title);
-            if (post is IGroupPost)
-                Console.WriteLine("GroupPost!");
-        }
     }
 }

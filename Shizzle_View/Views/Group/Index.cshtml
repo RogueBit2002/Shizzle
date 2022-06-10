@@ -1,0 +1,19 @@
+﻿@model GroupModel
+@{
+	ViewData["Title"] = Model.group.name;
+}
+
+<h2>@Model.group.name</h2>
+<span>Owned by <a href="/user?id=@Model.owner.id">@Model.owner.name</a></span>
+
+<br />
+
+<div>
+	@foreach(PostPreviewModel preview in Model.posts)
+	{
+		<div>
+			<a href="/post?id=@preview.post.id">@preview.post.title</a>
+			<span>By @preview.author.name</span>
+		</div>
+	}
+</div>
