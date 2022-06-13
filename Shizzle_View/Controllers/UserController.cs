@@ -12,9 +12,6 @@ namespace Shizzle.View.Controllers
     {
         public IActionResult Index(string id)
         {
-            if (!IsLoggedIn())
-                return RedirectToLoginPage();
-
             if (id == null)
                 return View("NotFound");
 

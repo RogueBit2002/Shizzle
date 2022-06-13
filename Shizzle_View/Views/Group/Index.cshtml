@@ -12,8 +12,11 @@
 	@foreach(PostPreviewModel preview in Model.posts)
 	{
 		<div>
-			<a href="/post?id=@preview.post.id">@preview.post.title</a>
-			<span>By @preview.author.name</span>
+			<span>
+				<a href="/post?id=@preview.post.id">@preview.post.title</a>
+				 by <a href="/user?id=@preview.author.id">@preview.author.name</a>
+				 at @preview.post.date
+			</span>
 		</div>
 	}
 </div>

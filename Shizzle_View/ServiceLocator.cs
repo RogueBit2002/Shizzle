@@ -1,26 +1,27 @@
-﻿using System.Collections.Generic;
+﻿using Shizzle.ILogic;
+using System.Collections.Generic;
 
 namespace Shizzle.View
 {
     public static class ServiceLocator
     {
-        private static HashSet<object> services = new HashSet<object>();
+        private static HashSet<ISecureService> services = new HashSet<ISecureService>();
         
-        public static void AddService(object service)
+        public static void AddService(ISecureService service)
         {
             services.Add(service);
         }
 
         public static T Locate<T>() where T : class
         {
-            foreach (object service in services)
+            foreach (ISecureService service in services)
                 if (service is T)
                     return service as T;
 
             return null;
         }
 
-        public static bool RemoveService(object service)
+        public static bool RemoveService(ISecureService service)
         {
             return services.Remove(service);
         }
@@ -28,6 +29,14 @@ namespace Shizzle.View
         public static void Clear()
         {
             services.Clear();
+        }
+
+        public static void SetAuthorityId(uint id)
+        {
+            foreach(ISecureService service in services)
+            {
+                service.authorityId = id;
+            }
         }
     }
 }

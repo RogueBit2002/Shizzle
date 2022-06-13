@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Shizzle.ILogic;
 using Shizzle.Structures;
 using Shizzle.View.Models;
@@ -10,9 +11,6 @@ namespace Shizzle.View.Controllers
     {
         public IActionResult Index(string id)
         {
-            if (!IsLoggedIn())
-                return RedirectToLoginPage();
-
             if (id == null)
                 return View("NotFound");
 
@@ -52,18 +50,27 @@ namespace Shizzle.View.Controllers
                 
             }
 
-            PostModel model = post is IGroupPost ? 
-                new GroupPostModel(
-                    post, 
-                    ServiceLocator.Locate<IUserService>().GetUser(post.authorId),
-                    comments,
-                    ServiceLocator.Locate<IGroupService>().GetGroup(((IGroupPost)post).groupId)
-                )
-                : new PostModel(post,
-                    ServiceLocator.Locate<IUserService>().GetUser(post.authorId),
-                    comments);
+            PostModel model = new PostModel(
+                post, 
+                ServiceLocator.Locate<IUserService>().GetUser(post.authorId),
+                post is IGroupPost ? ServiceLocator.Locate<IGroupService>().GetGroup(((IGroupPost)post).groupId) : null,
+                comments);
 
             return View(model);
+        }
+
+
+        public IActionResult Create()
+        {
+            if (!IsLoggedIn())
+                return RedirectToLoginPage();
+
+            return View();
+        }
+
+        public IActionResult CreatePost(IFormCollection collection)
+        {
+            return Redirect("Create");
         }
     }
 }

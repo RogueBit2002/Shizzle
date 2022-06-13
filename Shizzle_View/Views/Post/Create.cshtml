@@ -1,0 +1,10 @@
+﻿@model PostCreationModel
+@{
+	ViewData["Title"] = "Create a Post";
+}
+
+
+<form asp-controller="Post" asp-action="CreatePost">
+    <input type="text" asp-for="title" />
+    <input type="submit" value="Login"/>
+</form>

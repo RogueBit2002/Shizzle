@@ -11,8 +11,15 @@
 }
 
 <form asp-controller="Login" asp-action="TryLogin">
+    <label>Email</label>
+    <br />
     <input type="text" asp-for="email" />
+    <br />
+    <label>Password</label>
+    <br />
     <input type="password" asp-for="password" />
+    <br />
     <input type="hidden" asp-for="redirect" value="@Model.redirect"/>
     <input type="submit" value="Login"/>
 </form>
+<span>Don't have an account? Sign up <a href="/register">here</a>!</span>

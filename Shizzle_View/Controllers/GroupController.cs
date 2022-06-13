@@ -11,9 +11,6 @@ namespace Shizzle.View.Controllers
     {
         public IActionResult Index(string id)
         {
-            if (!IsLoggedIn())
-                return RedirectToLoginPage();
-
             uint groupId;
 
             try
@@ -33,7 +30,7 @@ namespace Shizzle.View.Controllers
 
             IEnumerable<PostPreviewModel> posts = 
                 ServiceLocator.Locate<IPostService>().GetPostsByGroup(groupId).Select(
-                    post => new PostPreviewModel(post, ServiceLocator.Locate<IUserService>().GetUser(post.authorId))
+                    post => new PostPreviewModel(post, ServiceLocator.Locate<IUserService>().GetUser(post.authorId), group)
                 );
            
             GroupModel model = new GroupModel(group, owner, posts);

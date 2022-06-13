@@ -7,8 +7,8 @@ namespace Shizzle.View.Models
     {
         public readonly IEnumerable<CommentModel> comments;
 
-        public PostModel(IPost post, IUser author, IEnumerable<CommentModel> comments)
-            : base(post, author)
+        public PostModel(IPost post, IUser author, IGroup group, IEnumerable<CommentModel> comments)
+            : base(post, author, group)
         {
             this.comments = comments;
         }

@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Shizzle.ILogic;
+using Shizzle.Structures;
 using Shizzle.View.Models;
 
 namespace Shizzle.View.Controllers
 {
-    public class RegisterController : Controller
+    public class RegisterController : AuthController
     {
         private const string emailErrorKey = "email-error";
         public IActionResult Index()
@@ -21,8 +23,15 @@ namespace Shizzle.View.Controllers
             string password = formCollection["password"];
             string name = formCollection["name"];
 
-            
-            
+            if(ServiceLocator.Locate<IUserService>().GetUser(email) != null)
+            {
+                HttpContext.Session.SetString(emailErrorKey, "Email already taken");
+                return Redirect("/register");
+            }
+
+            IUser user = ServiceLocator.Locate<IUserService>().CreateUser(name, email, password);
+            SetCurrentUser(user.id);
+
             return Redirect("/home");    
         }
     }
